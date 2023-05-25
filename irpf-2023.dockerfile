@@ -1,7 +1,6 @@
 FROM openjdk:11
 
-RUN chmod 1777 /tmp \
-    && apt-get update \
+RUN apt-get update \
     && apt-get install -o APT::Immediate-Configure=0 -y --no-install-recommends libgtk2.0-0 libcanberra-gtk-module libxext-dev libxrender-dev libxtst-dev \
     && rm -rf /var/lib/apt/lists/*
 
