@@ -1,0 +1,35 @@
+#!/bin/sh
+
+# Watch IRPF Java process for local HTTP listener used by gov.br auth.
+# The app may open the browser via native Java/GTK APIs, bypassing xdg-open.
+# When the server appears, print the local URL the host browser should open.
+
+seen=""
+
+while :; do
+    ports="$(irpf-listen-ports 2>/dev/null || true)"
+    current=""
+
+    for port in $ports; do
+        current="$current $port"
+
+        case " $seen " in
+            *" $port "*)
+                continue
+                ;;
+        esac
+
+        {
+            echo
+            echo "============================================================"
+            echo "IRPF local HTTP server detected on port $port."
+            echo "Open this URL on the host browser:"
+            echo "http://127.0.0.1:$port/irpf/login"
+            echo "============================================================"
+            echo
+        } >&2
+    done
+
+    seen="$current"
+    sleep 1
+done

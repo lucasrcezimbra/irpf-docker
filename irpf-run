@@ -1,0 +1,5 @@
+#!/bin/sh
+
+irpf-watch-login-url &
+
+exec java -Xms128M -Xmx512M -jar /opt/IRPF2026/irpf.jar

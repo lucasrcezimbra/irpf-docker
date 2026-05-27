@@ -1,6 +1,17 @@
 version: '3'
 
 services:
+  irpf-2026:
+    build:
+      context: .
+      dockerfile: irpf-2026.dockerfile
+    network_mode: host
+    environment:
+      - DISPLAY=$DISPLAY
+      - _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on'
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - $HOME:/home/irpf
   irpf-2024:
     build:
       context: .
